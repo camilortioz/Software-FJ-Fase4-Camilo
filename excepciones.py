@@ -1,11 +1,13 @@
+"""Excepciones personalizadas del sistema Software FJ."""
+
 class ErrorSistema(Exception):
-    """Error base controlado por la aplicación."""
+    """Clase base para los errores controlados de la aplicación."""
 
 class DatoInvalidoError(ErrorSistema):
-    """Dato que no cumple las validaciones."""
+    """Se genera cuando un dato no cumple las validaciones."""
 
 class ServicioNoDisponibleError(ErrorSistema):
-    """Servicio temporalmente no disponible."""
+    """Se genera cuando un servicio no está disponible."""
 
 class ReservaInvalidaError(ErrorSistema):
-    """Operación de reserva no permitida."""
+    """Se genera cuando una operación de reserva no es válida."""
