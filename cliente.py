@@ -1,8 +1,11 @@
+"""Clase Cliente: datos encapsulados y validados."""
 import re
 from entidad import Entidad
 from excepciones import DatoInvalidoError
 
 class Cliente(Entidad):
+    """Almacena la información básica de un cliente."""
+
     def __init__(self, identificador, nombre, correo, telefono):
         super().__init__(identificador)
         self.nombre = nombre
@@ -25,8 +28,9 @@ class Cliente(Entidad):
 
     @correo.setter
     def correo(self, valor):
-        if not isinstance(valor, str) or not re.fullmatch(r"[^@\\s]+@[^@\\s]+\\.[^@\\s]+", valor.strip()):
-            raise DatoInvalidoError("El correo no tiene un formato válido.")
+        patron = r"[^@\s]+@[^@\s]+\.[^@\s]+"
+        if not isinstance(valor, str) or not re.fullmatch(patron, valor.strip()):
+            raise DatoInvalidoError("El correo electrónico no tiene un formato válido.")
         self._correo = valor.strip().lower()
 
     @property
@@ -35,13 +39,14 @@ class Cliente(Entidad):
 
     @telefono.setter
     def telefono(self, valor):
-        digitos = re.sub(r"\\D", "", str(valor))
+        digitos = re.sub(r"\D", "", str(valor))
         if not 7 <= len(digitos) <= 15:
             raise DatoInvalidoError("El teléfono debe tener entre 7 y 15 dígitos.")
         self._telefono = digitos
 
     def describir(self):
-        return "Cliente {}: {} ({})".format(self.identificador, self.nombre, self.correo)
+        return "Cliente {}: {} ({})".format(
+            self.identificador, self.nombre, self.correo)
 
     def __str__(self):
         return self.describir()
